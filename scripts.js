@@ -7,25 +7,25 @@ addBookButton.addEventListener("click", (e) => {
     toggleDialog();
 });
 
-//changed a thing
-
 const removeBookButton = document.getElementById("remove-book-button");
 const viewLibraryButton = document.getElementById("view-library-button");
 
-function Book(
-    title,
-    author,
-    pageCount = "0",
-    hasBookBeenRead = false,
-    bookIndex
-) {
-    this.title = title;
-    this.author = author;
-    this.pageCount = pageCount;
-    this.hasBookBeenRead = hasBookBeenRead;
-    this.bookIndex = bookIndex;
+class Book {
+    constructor(
+        title,
+        author,
+        pageCount = "0",
+        hasBookBeenRead = false,
+        bookIndex
+    ) {
+        this.title = title;
+        this.author = author;
+        this.pageCount = pageCount;
+        this.hasBookBeenRead = hasBookBeenRead;
+        this.bookIndex = bookIndex;
+    }
 
-    function toggleHasBeenRead() {
+    toggleHasBeenRead() {
         hasBookBeenRead ? (hasBookBeenRead = false) : (hasBookBeenRead = true);
     }
 }
