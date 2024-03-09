@@ -4,15 +4,28 @@ const libraryCardContainer = document.getElementById("library-card-container");
 
 const addBookButton = document.getElementById("add-book-button");
 addBookButton.addEventListener("click", (e) => {
-    createNewBookCardWrapper();
+    toggleDialog();
 });
 
 const removeBookButton = document.getElementById("remove-book-button");
 const viewLibraryButton = document.getElementById("view-library-button");
 
-function Book(title, author) {
+function Book(
+    title,
+    author,
+    pageCount = "0",
+    hasBookBeenRead = false,
+    bookIndex
+) {
     this.title = title;
     this.author = author;
+    this.pageCount = pageCount;
+    this.hasBookBeenRead = hasBookBeenRead;
+    this.bookIndex = bookIndex;
+
+    function toggleHasBeenRead() {
+        hasBookBeenRead ? (hasBookBeenRead = false) : (hasBookBeenRead = true);
+    }
 }
 
 function createNewBook() {
@@ -21,7 +34,7 @@ function createNewBook() {
         "Please enter the new book author:",
         "Book Author"
     );
-    const thisBook = new Book(bookTitle, bookAuthor);
+    const thisBook = new Book(bookTitle, bookAuthor, "69", true);
     myLibrary.push(thisBook);
 
     return thisBook;
@@ -47,6 +60,12 @@ function createNewBookCard(newBook) {
     const newBookAuthor = document.createElement("div");
     newBookCard.classList.add("book-author");
 
+    const newBookPageCount = document.createElement("div");
+    newBookPageCount.classList.add("page-count");
+
+    const newBookRead = document.createElement("div");
+    newBookRead.classList.add("has-been-read");
+
     const removeBookButton = document.createElement("div");
     removeBookButton.classList.add("remove-book-button");
     removeBookButton.classList.add("nav-link");
@@ -56,12 +75,29 @@ function createNewBookCard(newBook) {
     });
     removeBookButton.textContent = "Remove";
 
-    newBookTitle.textContent = newBook.title;
-    newBookAuthor.textContent = newBook.author;
+    const changeReadStatusButton = document.createElement("div");
+    changeReadStatusButton.classList.add("change-read-status-button");
+    changeReadStatusButton.classList.add("nav-link");
+    changeReadStatusButton.addEventListener("click", () => {
+        newBook.hasBookBeenRead
+            ? (newBook.hasBookBeenRead = false)
+            : (newBook.hasBookBeenRead = true);
+
+        newBookRead.textContent = "Read: " + newBook.hasBookBeenRead;
+    });
+    changeReadStatusButton.textContent = "Change Read Status";
+
+    newBookTitle.textContent = "Title: " + newBook.title;
+    newBookAuthor.textContent = "Author: " + newBook.author;
+    newBookPageCount.textContent = "Page Count: " + newBook.pageCount;
+    newBookRead.textContent = "Read: " + newBook.hasBookBeenRead;
 
     newBookCard.appendChild(newBookTitle);
     newBookCard.appendChild(newBookAuthor);
+    newBookCard.appendChild(newBookPageCount);
+    newBookCard.appendChild(newBookRead);
     newBookCard.appendChild(removeBookButton);
+    newBookCard.appendChild(changeReadStatusButton);
     libraryCardContainer.appendChild(newBookCard);
 }
 
@@ -85,17 +121,35 @@ function generateTempLibrary() {
         "JRR Tolkien",
     ];
 
+    const pageCountList = ["1000", "1000", "1000", "1000"];
+
+    const hasBeenReadList = [true, true, true, true];
+
     for (let i = 0; i < titleList.length; i++) {
-        const newBook = new Book(titleList[i], authorList[i]);
+        const newBook = new Book(
+            titleList[i],
+            authorList[i],
+            pageCountList[i],
+            hasBeenReadList[i],
+            myLibrary.length
+        );
         myLibrary.push(newBook);
     }
 }
 
 function removeBook(parentCard) {
-    //const parentCard = e.parentElement;
-
     parentCard.parentElement.removeChild(parentCard);
 }
+
+const toggleDialog = () => {
+    const dialog = document.getElementById("add-book-dialog");
+    const open = dialog.getAttribute("open");
+    if (open) {
+        dialog.removeAttribute("open");
+    } else {
+        dialog.setAttribute("open", "true");
+    }
+};
 
 generateTempLibrary();
 populateLibraryCards();

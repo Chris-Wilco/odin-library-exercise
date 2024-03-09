@@ -25,34 +25,44 @@
             <div id="remove-book-button" class="nav-link">Remove Book</div>
             <div id="view-library-button" class="nav-link">View Library</div>
         </div>
-        <div id="library-container">
-            <div id="library-title" class="nav-text">Library</div>
-            <div id="library-card-container">
-                <!-- <div class="book-card content-shadow">
-                    <div class="book-title">Title 1</div>
-                    <div class="book-author">Author 1</div>
+        <dialog id="add-book-dialog">
+            <div id="form-container" class="nav-text">
+                <div id="add-book-dialog-heading">Add Book:</div>
+                <form action="none" class="add-book-form">
+                    <div class="input-wrapper">
+                        <label for="book-title">Title:</label>
+                        <input type="text" id="book-author" />
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="book-author">Author:</label>
+                        <input type="text" id="book-author" />
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="book-page-count">Page Count:</label>
+                        <input type="number" id="book-page-count" />
+                    </div>
+                    <div class="input-wrapper radio-input-wrapper">
+                        <legend class="">
+                            Have you already read this book?
+                        </legend>
+                        <label class="form-control radio-control">
+                            <input type="radio" name="radio" value="Yes" />
+                            Yes
+                        </label>
+                        <label class="form-control radio-control">
+                            <input type="radio" name="radio" value="No" />
+                            No
+                        </label>
+                    </div>
+                </form>
+                <div class="submit-wrapper">
+                    <div id="form-submit" class="">Submit</div>
                 </div>
-                <div class="book-card content-shadow">
-                    <div class="book-title">Title 2</div>
-                    <div class="book-author">Author 2</div>
-                </div>
-                <div class="book-card content-shadow">
-                    <div class="book-title">Title 3</div>
-                    <div class="book-author">Author 3</div>
-                </div>
-                <div class="book-card content-shadow">
-                    <div class="book-title">Title 4</div>
-                    <div class="book-author">Author 4</div>
-                </div>
-                <div class="book-card content-shadow">
-                    <div class="book-title">Title 5</div>
-                    <div class="book-author">Author 5</div>
-                </div>
-                <div class="book-card content-shadow">
-                    <div class="book-title">Title 6</div>
-                    <div class="book-author">Author 6</div>
-                </div> -->
             </div>
+        </dialog>
+        <div id="library-container" class="">
+            <div id="library-title" class="nav-text">Library</div>
+            <div id="library-card-container"></div>
         </div>
         <script src="scripts.js" defer></script>
     </body>

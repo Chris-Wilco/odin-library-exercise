@@ -1,10 +1,18 @@
+:root {
+    --radio-border-color: #8b8c89;
+    --radio-checked-color: #274c77;
+    --radio-hover-color: #a3cef1;
+    --radio-disabled-bg-color: #d9d9d9;
+}
+
 * {
     margin: 0px;
+    box-sizing: border-box;
 }
 
 body {
     display: grid;
-    grid-template-rows: 1fr 8fr;
+    grid-template-rows: 60px 8fr;
     grid-template-columns: 1fr;
     font-family: "Montserrat", "Roboto Condensed", sans-serif;
     color: rgb(0, 0, 0, 0.9);
@@ -27,16 +35,139 @@ body {
     font-weight: 700;
 }
 
-#library-container {
+dialog {
+    position: absolute;
+    margin: auto;
+}
+
+#form-container {
     display: grid;
-    grid-template-rows: 1fr 6fr;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr 6fr 1fr;
+    grid-template-rows: repeat(auto-fit, 1fr);
+    justify-items: center;
+    align-items: center;
+    padding: 10px;
     gap: 10px;
 
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    font-size: 70%;
+}
 
-    border: solid 1px black;
+#add-book-dialog-heading {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    font-size: 20px;
+}
+
+.add-book-form {
+    grid-column: 2 / 3;
+}
+
+.input-wrapper {
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    margin: 8px;
+    padding: 4px;
+}
+
+input {
+    height: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.radio-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 5px;
+}
+
+.radio-pair-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.form-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="radio"] {
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin: 6px;
+    padding: 0;
+    border: 2px solid var(--radio-border-color);
+    border-radius: 50%;
+    appearance: none;
+    background-color: transparent;
+    outline: none;
+    transition: outline 0.1s;
+}
+
+input[type="radio"]:not(:disabled):checked {
+    border-color: var(--radio-checked-color);
+    background-color: var(--radio-checked-color);
+    background-clip: content-box;
+    padding: 2px;
+    background-image: radial-gradient(
+        circle,
+        var(--radio-checked-color) 0%,
+        var(--radio-checked-color) 50%,
+        transparent 60%,
+        transparent 100%
+    );
+}
+
+input[type="radio"]:disabled {
+    background-color: var(--radio-disabled-bg-color);
+}
+
+input[type="radio"]:disabled:checked {
+    background-image: radial-gradient(
+        circle,
+        var(--radio-border-color) 0%,
+        var(--radio-border-color) 50%,
+        transparent 50%,
+        transparent 100%
+    );
+}
+
+@media (hover: hover) {
+    input[type="radio"]:not(:disabled):hover {
+        background-color: var(--radio-hover-color);
+        outline: 6px solid var(--radio-hover-color);
+        transform: scale(1.05);
+    }
+}
+
+input[type="radio"]:focus-visible {
+    background-color: var(--radio-hover-color);
+    outline: 6px solid var(--radio-hover-color);
+}
+
+.submit-wrapper {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    border: 1px solid black;
+    padding: 4px;
+    cursor: pointer;
+}
+
+#library-container {
+    display: grid;
+    grid-template-rows: 80px 6fr;
+    grid-template-columns: 1fr;
+    gap: 0px;
+    margin: 0px 20px;
+
+    background-color: rgba(0, 0, 0, 0.1);
+    /* background-color: #e92929b0; */
 }
 
 #library-title {
@@ -47,8 +178,6 @@ body {
     color: rgba(0, 0, 0, 0.8);
     font-weight: 700;
     font-size: 40px;
-
-    /* border: solid 1px black; */
 }
 
 #library-card-container {
@@ -56,39 +185,27 @@ body {
     grid-row: 2 / 3;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-auto-rows: minmax(250px, 1fr);
-    /* grid-auto-columns: minmax(150px, 1fr); */
-    gap: 10px;
-    /* background-color: #e92929b0; */
-    border: solid 1px #e92929b0;
-    margin: 10px 40px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: minmax(200px, 250px);
+    gap: 20px;
+    margin: 0px 40px;
 }
 
 .book-card {
-    /* display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr; */
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 
     background-color: rgba(255, 127, 80, 0.875);
     color: rgba(0, 0, 0, 0.8);
     font-weight: 400;
-    font-size: 20px;
-}
-
-.book-title,
-.book-author {
-    /* place-self: center; */
+    font-size: 14px;
 }
 
 .content-shadow {
-    filter: drop-shadow(4px 4px 4px #00000020);
+    filter: drop-shadow(4px 4px 4px #00000060);
 }
 
 .remove-book-button {
