@@ -7,6 +7,8 @@ addBookButton.addEventListener("click", (e) => {
     toggleDialog();
 });
 
+//changed a thing
+
 const removeBookButton = document.getElementById("remove-book-button");
 const viewLibraryButton = document.getElementById("view-library-button");
 
